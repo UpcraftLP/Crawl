@@ -8,6 +8,9 @@
 		"McSkinnerOG",
 		"Chocohead"
 	],
+    "contributors": [
+        "UpcraftLP"
+    ],
 	"environment": "*",
 	"entrypoints": { 
 		"main": [
