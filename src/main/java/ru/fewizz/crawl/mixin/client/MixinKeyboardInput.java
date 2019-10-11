@@ -25,7 +25,9 @@ abstract class MixinKeyboardInput extends Input {
 		boolean oldCrawlState = player.getPose() == CrawlMod.CRAWLING;
 		
 		if(newCrawlState != oldCrawlState) {
-            ClientSidePacketRegistry.INSTANCE.sendToServer(CrawlMod.CRAWL_PACKET_ID, new PacketByteBuf(Unpooled.wrappedBuffer(new byte[] { (byte) (newCrawlState ? 1 : 0)})));
+		    PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
+		    byteBuf.writeBoolean(newCrawlState);
+            ClientSidePacketRegistry.INSTANCE.sendToServer(CrawlMod.CRAWL_PACKET_ID, byteBuf);
 			player.getDataTracker().set(CrawlMod.CRAWLING_REQUEST, newCrawlState);
 		}
 		
