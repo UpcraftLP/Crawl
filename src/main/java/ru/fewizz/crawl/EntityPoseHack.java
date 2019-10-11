@@ -9,13 +9,7 @@ public class EntityPoseHack implements Runnable {
 
 	@Override
 	public void run() {
-		String target = "net.minecraft.class_4050";
-
-		//Remap to whatever the Yarn name is if loading in dev
-		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-			target = FabricLoader.getInstance().getMappingResolver().mapClassName("named", target);
-		}
-
+		String target = FabricLoader.getInstance().getMappingResolver().mapClassName("intermediary", "net.minecraft.class_4050"); //Remap to whatever the Yarn name is if loading in dev
 		ClassTinkerers.enumBuilder(target, new Class[0]).addEnum(CRAWLING).build();
 	}
 }
