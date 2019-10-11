@@ -14,7 +14,7 @@
 			"ru.fewizz.crawl.CrawlMod"
 		],
 		"client": [
-			"ru.fewizz.crawl.CrawlMod$Client"
+			"ru.fewizz.crawl.CrawlModClient"
 		]
 	},
 	"custom": {

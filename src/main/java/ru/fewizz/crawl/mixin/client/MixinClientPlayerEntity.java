@@ -10,7 +10,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
-import ru.fewizz.crawl.CrawlMod.Shared;
+import ru.fewizz.crawl.CrawlMod;
 
 @Mixin(ClientPlayerEntity.class)
 abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
@@ -21,7 +21,7 @@ abstract class MixinClientPlayerEntity extends AbstractClientPlayerEntity {
 	
 	@Inject(method="tickMovement", at=@At(value="INVOKE", target="net/minecraft/client/network/AbstractClientPlayerEntity.tickMovement()V"))
 	public void beforeSuperMovementTick(CallbackInfo ci) {
-		if(getPose() == Shared.CRAWLING)
+		if(getPose() == CrawlMod.CRAWLING)
 			setSprinting(false);
 	}
 }

@@ -14,7 +14,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import ru.fewizz.crawl.CrawlMod;
-import ru.fewizz.crawl.CrawlMod.Shared;
 
 @Mixin(PlayerEntity.class)
 public abstract class MixinPlayerEntity extends Entity {
@@ -25,7 +24,7 @@ public abstract class MixinPlayerEntity extends Entity {
 
 	@Inject(method="initDataTracker", at=@At("HEAD"))
 	public void onInitDataDtracker(CallbackInfo ci) {
-		getDataTracker().startTracking(CrawlMod.Shared.CRAWLING_REQUEST, false);
+		getDataTracker().startTracking(CrawlMod.CRAWLING_REQUEST, false);
 	}
 	
 	@Redirect(
@@ -38,22 +37,22 @@ public abstract class MixinPlayerEntity extends Entity {
 		)
 	public void onPreSetPose(PlayerEntity pl, EntityPose pose) {
 		boolean replaceSwimming = pose == EntityPose.SWIMMING && !pl.isSwimming();
-		boolean crawl = pl.getDataTracker().get(Shared.CRAWLING_REQUEST) && !pl.isSwimming();
+		boolean crawl = pl.getDataTracker().get(CrawlMod.CRAWLING_REQUEST) && !pl.isSwimming();
 		
 		if(replaceSwimming || crawl)
-			pose = Shared.CRAWLING;
+			pose = CrawlMod.CRAWLING;
 		setPose(pose);
 	}
 	
 	@Inject(method="getDimensions", at=@At("HEAD"), cancellable=true)
 	public void onGetDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> ci) {
-		if(pose == CrawlMod.Shared.CRAWLING)
-			ci.setReturnValue(CrawlMod.Shared.CRAWLING_SIZE);
+		if(pose == CrawlMod.CRAWLING)
+			ci.setReturnValue(CrawlMod.CRAWLING_SIZE);
 	}
 	
 	@Inject(method="getActiveEyeHeight", at=@At("HEAD"), cancellable=true)
 	public void onGetActiveEyeHeight(EntityPose entityPose_1, EntityDimensions entitySize_1, CallbackInfoReturnable<Float> ci) {
-		if(entityPose_1 == CrawlMod.Shared.CRAWLING || entitySize_1 == CrawlMod.Shared.CRAWLING_SIZE)
+		if(entityPose_1 == CrawlMod.CRAWLING || entitySize_1 == CrawlMod.CRAWLING_SIZE)
 			ci.setReturnValue(0.6F);
 	}
 }

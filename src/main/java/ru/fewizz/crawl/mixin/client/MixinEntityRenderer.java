@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.entity.Entity;
-import ru.fewizz.crawl.CrawlMod.Shared;
+import ru.fewizz.crawl.CrawlMod;
 
 @Mixin(EntityRenderer.class)
 public class MixinEntityRenderer {
@@ -19,6 +19,6 @@ public class MixinEntityRenderer {
 		)
 	)
 	boolean onGetIsInSneakingPose(Entity e) {
-		return e.isInSneakingPose() || e.getPose() == Shared.CRAWLING;
+		return e.isInSneakingPose() || e.getPose() == CrawlMod.CRAWLING;
 	}
 }
